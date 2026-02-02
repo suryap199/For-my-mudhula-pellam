@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Mudhula Pellam ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #fff0f5, #ffffff);
+      color: #333;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    section {
+      min-height: 100vh;
+      padding: 80px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 20px;
+    }
+    .fade { opacity: 0; transform: translateY(20px); transition: all 1.2s ease; }
+    .fade.show { opacity: 1; transform: translateY(0); }
+    button { padding: 14px 28px; border: none; border-radius: 30px; background: #ff6b81; color: white; font-size: 16px; cursor: pointer; margin-top: 20px; transition: background 0.3s ease; }
+    button:hover { background: #ff4757; }
+    .note { max-width: 600px; font-size: 18px; line-height: 1.6; }
+    .heart { position: fixed; bottom: -20px; font-size: 20px; animation: floatUp 6s linear infinite; color: #ff6b81; }
+    @keyframes floatUp { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-120vh); opacity: 0; } }
+    input { padding: 12px; border-radius: 10px; border: 1px solid #ccc; font-size: 16px; margin-top: 10px; }
+    #puzzle { display: grid; grid-template-columns: repeat(3, 100px); gap: 5px; margin-top: 20px; }
+    #puzzle img { width: 100px; height: 100px; object-fit: cover; cursor: pointer; border-radius: 10px; }
+    .swiper { width: 80%; height: 400px; margin-top: 20px; }
+    .swiper-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
+  </style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg" />
+</audio>
+
+<section id="intro">
+  <h1 class="fade">Hey Mudhula Pellam ❤️</h1>
+  <p class="note fade">I made something special for you. Take a deep breath… and let’s begin.</p>
+  <button onclick="startExperience()">Start</button>
+</section>
+
+<section id="note1">
+  <h2 class="fade">A Little Note</h2>
+  <p class="note fade">From the moment you walked into my life, everything felt warmer, softer, brighter.</p>
+</section>
+
+<section id="game">
+  <h2 class="fade">A Small Challenge</h2>
+  <p class="fade">Type my favorite person’s name (hint: it’s you!)</p>
+  <input id="answer" placeholder="Mudhula Pellam" />
+  <button onclick="checkAnswer()">Submit</button>
+  <p id="result"></p>
+</section>
+
+<section id="puzzle">
+  <h2 class="fade">Our Special Puzzle 🧩</h2>
+  <p class="note fade">Drag the pieces to complete the image.</p>
+  <div id="puzzle"></div>
+</section>
+
+<section id="quiz">
+  <h2 class="fade">Relationship Quiz 🎯</h2>
+  <p class="note fade">Answer these questions to move forward:</p>
+  <ol class="note fade" id="quizQuestions">
+    <li>What is our favorite movie together?</li>
+    <li>Where did we have our first date?</li>
+    <li>What song reminds us of each other?</li>
+  </ol>
+  <button onclick="completeQuiz()">Submit Answers</button>
+</section>
+
+<section id="slideshow">
+  <h2 class="fade">Memories 📸</h2>
+  <div class="swiper fade">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="memory1.jpg" /></div>
+      <div class="swiper-slide"><img src="memory2.jpg" /></div>
+      <div class="swiper-slide"><img src="memory3.jpg" /></div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+
+<section id="final">
+  <h1 class="fade">One Last Thing…</h1>
+  <p class="note fade">I want to wake up next to you for the rest of my life.</p>
+  <h2 class="fade">Will you marry me? 💍</h2>
+</section>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+  const faders = document.querySelectorAll('.fade');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
+  }, { threshold: 0.3 });
+  faders.forEach(el => observer.observe(el));
+
+  function startExperience() {
+    document.getElementById('bgMusic').play();
+    document.getElementById('note1').scrollIntoView();
+  }
+
+  function checkAnswer() {
+    const val = document.getElementById('answer').value.toLowerCase();
+    if (val === 'mudhula pellam') {
+      document.getElementById('result').innerText = 'Of course ❤️';
+      loadPuzzle();
+    } else {
+      document.getElementById('result').innerText = 'Try again 😘';
+    }
+  }
+
+  function loadPuzzle() {
+    const puzzleContainer = document.getElementById('puzzle');
+    const pieces = ['puzzle1.jpg','puzzle2.jpg','puzzle3.jpg','puzzle4.jpg','puzzle5.jpg','puzzle6.jpg'];
+    pieces.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.draggable = true;
+      puzzleContainer.appendChild(img);
+    });
+    document.getElementById('puzzle').scrollIntoView();
+  }
+
+  function completeQuiz() {
+    document.getElementById('slideshow').scrollIntoView();
+    const swiper = new Swiper('.swiper', { loop:true, pagination:{el:'.swiper-pagination'}, navigation:{nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev'} });
+  }
+
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.innerText = '❤';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 800);
+</script>
+
+</body>
+</html>
