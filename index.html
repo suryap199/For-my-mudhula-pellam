@@ -75,13 +75,21 @@
 
 <section id="quiz">
   <h2 class="fade">Relationship Quiz 🎯</h2>
-  <p class="note fade">Answer these questions to move forward:</p>
-  <ol class="note fade" id="quizQuestions">
-    <li>What is our favorite movie together?</li>
-    <li>Where did we have our first date?</li>
-    <li>What song reminds us of each other?</li>
-  </ol>
-  <button onclick="completeQuiz()">Submit Answers</button>
+  <p class="note fade">Answer these questions correctly to continue 💕</p>
+
+  <div class="note fade" style="margin-top:20px;">
+    <p>Which movie did we watch on movie date?</p>
+    <input id="q1" placeholder="Your answer..." />
+
+    <p style="margin-top:15px;">Where do we had our first night date?</p>
+    <input id="q2" placeholder="Your answer..." />
+
+    <p style="margin-top:15px;">What is our favourite place?</p>
+    <input id="q3" placeholder="Your answer..." />
+  </div>
+
+  <button onclick="checkQuiz()">Submit Answers</button>
+  <p id="quizResult" style="margin-top:15px;"></p>
 </section>
 
 <section id="slideshow">
@@ -129,7 +137,7 @@
 
   function loadPuzzle() {
     const puzzleContainer = document.getElementById('puzzle');
-    const pieces = ['puzzle1.png','puzzle2.png','puzzle3.png','puzzle4.png','puzzle5.png','puzzle6.png'];
+    const pieces = ['puzzle1.jpg','puzzle2.jpg','puzzle3.jpg','puzzle4.jpg','puzzle5.jpg','puzzle6.jpg'];
     pieces.forEach(src => {
       const img = document.createElement('img');
       img.src = src;
@@ -139,9 +147,18 @@
     document.getElementById('puzzle').scrollIntoView();
   }
 
-  function completeQuiz() {
-    document.getElementById('slideshow').scrollIntoView();
-    const swiper = new Swiper('.swiper', { loop:true, pagination:{el:'.swiper-pagination'}, navigation:{nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev'} });
+  function checkQuiz() {
+    const a1 = document.getElementById('q1').value.toLowerCase().trim();
+    const a2 = document.getElementById('q2').value.toLowerCase().trim();
+    const a3 = document.getElementById('q3').value.toLowerCase().trim();
+
+    if (a1 === 'c/o kancharapalem' && a2 === 'maldives' && a3 === 'home') {
+      document.getElementById('quizResult').innerText = 'Perfect ❤️ You know us so well!';
+      document.getElementById('slideshow').scrollIntoView();
+      new Swiper('.swiper', { loop:true, pagination:{el:'.swiper-pagination'}, navigation:{nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev'} });
+    } else {
+      document.getElementById('quizResult').innerText = 'Almost 😘 Try again, love.';
+    }
   }
 
   setInterval(() => {
